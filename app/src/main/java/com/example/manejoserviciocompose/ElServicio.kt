@@ -31,7 +31,7 @@ class ElServicio: Service() {
             }
             R.string.key2.toString() -> {
                 Toast.makeText(this, R.string.songinc, Toast.LENGTH_LONG).show()
-                player2 . start ()
+                player2.start ()
             }
         }
         return startId
