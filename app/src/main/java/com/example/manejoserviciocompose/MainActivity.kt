@@ -42,11 +42,7 @@ class MainActivity : ComponentActivity() {
 fun Replaying(modifier: Modifier = Modifier) {
     Column (modifier = modifier.fillMaxSize()){
         val context = LocalContext.current
-        val b = Bundle()
-        val servInt = Intent(
-            context,
-            ElServicio::class.java
-        )
+        val broadcastIntent = Intent(context, MyReceiver::class.java)
         Text(
             modifier = Modifier.padding(vertical = 54.dp).align(Alignment.CenterHorizontally),
             text = stringResource(R.string.goal)
@@ -58,9 +54,8 @@ fun Replaying(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(vertical = 34.dp),
                 elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
                 onClick = {
-                    b.putString(MYDEFAULTSTRING_ID, R.string.key1.toString())
-                    servInt.putExtras(b)
-                    context.startService(servInt)
+                    broadcastIntent.putExtra("ACTION", "SONIDO")
+                    context.sendBroadcast(broadcastIntent)
                 }) {
                 Text(stringResource(R.string.boton1))
             }
@@ -69,9 +64,8 @@ fun Replaying(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(vertical = 34.dp),
                 elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
                 onClick = {
-                    b.putString(MYDEFAULTSTRING_ID, R.string.key2.toString())
-                    servInt.putExtras(b)
-                    context.startService(servInt)
+                    broadcastIntent.putExtra("ACTION", "CANCION")
+                    context.sendBroadcast(broadcastIntent)
                 }) {
                 Text(stringResource(R.string.boton2))
             }
@@ -80,7 +74,8 @@ fun Replaying(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(vertical = 34.dp).align(Alignment.CenterHorizontally),
             elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
             onClick = {
-                context.stopService(servInt)
+                broadcastIntent.putExtra("ACTION", "DETENER")
+                context.sendBroadcast(broadcastIntent)
             }) {
             Text(stringResource(R.string.boton3))
 

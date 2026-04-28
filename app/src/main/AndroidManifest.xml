@@ -20,6 +20,10 @@
             android:permission="TODO">
         </service>
 
+        <receiver
+            android:name=".MyReceiver"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
