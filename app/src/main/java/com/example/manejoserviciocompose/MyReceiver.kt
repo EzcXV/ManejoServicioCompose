@@ -13,12 +13,12 @@ class MyReceiver : BroadcastReceiver() {
         when (action) {
             "SONIDO" -> {
                 Toast.makeText(context, "BroadcastReceiver - Inicio reproducción sonido", Toast.LENGTH_SHORT).show()
-                i.putExtra(MainActivity.MYDEFAULTSTRING_ID, context.getString(R.string.key1))
+                i.putExtra(MainActivity.MYDEFAULTSTRING_ID, R.string.key1.toString())
                 context.startService(i)
             }
             "CANCION" -> {
                 Toast.makeText(context, "BroadcastReceiver - Inicio reproducción canción", Toast.LENGTH_SHORT).show()
-                i.putExtra(MainActivity.MYDEFAULTSTRING_ID, context.getString(R.string.key2))
+                i.putExtra(MainActivity.MYDEFAULTSTRING_ID, R.string.key2.toString())
                 context.startService(i)
             }
             "DETENER" -> {
