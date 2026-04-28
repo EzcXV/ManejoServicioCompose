@@ -1,6 +1,7 @@
 package com.example.manejoserviciocompose
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.example.manejoserviciocompose.ui.theme.ManejoServicioComposeTheme
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +45,24 @@ class MainActivity : ComponentActivity() {
 fun Replaying(modifier: Modifier = Modifier) {
     Column (modifier = modifier.fillMaxSize()){
         val context = LocalContext.current
+
         val broadcastIntent = Intent(context, MyReceiver::class.java)
+
+        val systemReceiver = remember { EventReceiver() }
+
+        DisposableEffect(context) {
+            val filter = IntentFilter().apply {
+                addAction(Intent.ACTION_HEADSET_PLUG)
+                addAction(Intent.ACTION_POWER_CONNECTED)
+                addAction(Intent.ACTION_POWER_DISCONNECTED)
+            }
+
+            context.registerReceiver(systemReceiver, filter)
+
+            onDispose {
+                context.unregisterReceiver(systemReceiver)
+            }
+        }
         Text(
             modifier = Modifier.padding(vertical = 54.dp).align(Alignment.CenterHorizontally),
             text = stringResource(R.string.goal)
