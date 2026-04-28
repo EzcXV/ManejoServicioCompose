@@ -24,12 +24,12 @@ class EventReceiver : BroadcastReceiver() {
             }
 
             Intent.ACTION_POWER_CONNECTED -> {
-                Toast.makeText(context, "BroadcastReceiver - POWER_CONNECTED", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "BroadcastReceiver - CARGADOR_CONECTADO", Toast.LENGTH_SHORT).show()
                 servInt.putExtra(MainActivity.MYDEFAULTSTRING_ID, R.string.key2.toString())
                 context.startService(servInt)
             }
             Intent.ACTION_POWER_DISCONNECTED -> {
-                Toast.makeText(context, "BroadcastReceiver - POWER_DISCONNECTED", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "BroadcastReceiver - CARGADOR_DESCONECTADO", Toast.LENGTH_SHORT).show()
                 context.stopService(servInt)
             }
         }
